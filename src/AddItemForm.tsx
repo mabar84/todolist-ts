@@ -1,3 +1,6 @@
+import { AddCircle, AddCircleOutlineOutlined } from "@mui/icons-material";
+import { Grid, Icon, IconButton, TextField } from "@mui/material";
+import { green } from "@mui/material/colors";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 type AddItemFormPropsType = {
@@ -14,10 +17,10 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
   const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     setError(null);
-    if (e.ctrlKey && e.key === "Enter") addTask();
+    if (e.ctrlKey && e.key === "Enter") addItem();
   };
 
-  const addTask = () => {
+  const addItem = () => {
     if (title.trim() === "") {
       setError("Field is required");
       return;
@@ -28,14 +31,28 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
   return (
     <div>
-      <input
+      {/* <input
         value={title}
         onChange={onChangeHandler}
         onKeyDown={onKeyDownHandler}
         className={error ? "error" : ""}
-      />
-      <button onClick={addTask}>+</button>
-      {error && <div className="error-message">{error}</div>}
+      /> */}
+
+      <Grid container>
+        <TextField
+          variant={"outlined"}
+          label={"NewItem"}
+          value={title}
+          onChange={onChangeHandler}
+          onKeyDown={onKeyDownHandler}
+          helperText={error}
+          error={!!error}
+        />
+        <IconButton onClick={addItem}>
+          <AddCircleOutlineOutlined sx={{ color: green[500] }} />
+        </IconButton>
+      </Grid>
+      {/* {error && <div className="error-message">{error}</div>} */}
     </div>
   );
 }

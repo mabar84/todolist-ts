@@ -66,15 +66,15 @@ function AppWithReducers() {
         dispatchTasksReducer(addTaskAC(newTaskTitle, todolistID))
     }
 
-    function changeTaskStatus(taskId: string, isDone: boolean, todolistID: string) {
-        dispatchTasksReducer(changeTaskStatusAC(taskId, isDone, todolistID))
+    function changeTaskStatus(todolistID: string, taskId: string, isDone: boolean) {
+        dispatchTasksReducer(changeTaskStatusAC(todolistID, taskId, isDone))
     }
 
     function changeTaskTitle(todolistID: string, taskId: string, newTitle: string) {
         dispatchTasksReducer(changeTaskTitleAC(todolistID, taskId, newTitle))
     }
 
-    function changeFilter(value: FilterValuesType, todolistID: string) {
+    function changeFilter(todolistID: string, value: FilterValuesType) {
         dispatchTodolistsReducer(changeTodolistFilterAC(todolistID, value))
     }
 

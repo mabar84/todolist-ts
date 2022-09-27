@@ -1,42 +1,45 @@
-import { TextField } from "@mui/material";
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import {TextField} from "@mui/material";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 
 type EditableSpanPropsType = {
-  title: string;
-  onChange: (newValue: string) => void;
+    title: string;
+    onChange: (newValue: string) => void;
 };
 
-export function EditableSpan(props: EditableSpanPropsType) {
-  let [editMode, setEditMode] = useState(false);
-  let [title, setTitle] = useState("");
+export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
-  const activateEditMode = () => {
-    setEditMode(true);
-    setTitle(props.title);
-  };
+    console.log("EditableSpan")
 
-  const activateViewMode = () => {
-    setEditMode(false);
-    props.onChange(title);
-  };
+    let [editMode, setEditMode] = useState(false);
+    let [title, setTitle] = useState("");
 
-  const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value);
-  };
+    const activateEditMode = () => {
+        setEditMode(true);
+        setTitle(props.title);
+    };
 
-  const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.ctrlKey && e.key === "Enter") activateViewMode();
-  };
+    const activateViewMode = () => {
+        setEditMode(false);
+        props.onChange(title);
+    };
 
-  return editMode ? (
-    <TextField
-      value={title}
-      onChange={onChangeTitleHandler}
-      onBlur={activateViewMode}
-      onKeyDown={onKeyDownHandler}
-      autoFocus
-    />
-  ) : (
-    <span onDoubleClick={activateEditMode}> {props.title}</span>
-  );
-}
+    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value);
+    };
+
+    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") activateViewMode();
+    };
+
+    return editMode ? (
+        <TextField
+            value={title}
+            onChange={onChangeTitleHandler}
+            onBlur={activateViewMode}
+            onKeyDown={onKeyDownHandler}
+            autoFocus
+        />
+    ) : (
+        <span onDoubleClick={activateEditMode}> {props.title}</span>
+    );
+})

@@ -54,7 +54,7 @@ function App() {
         setTasks({...tasksObj});
     }
 
-    function changeStatus(taskId: string, isDone: boolean, todolistID: string) {
+    function changeStatus(todolistID: string, taskId: string, isDone: boolean) {
         let tasks = tasksObj[todolistID];
 
         let task = tasks.find((t) => t.id === taskId);
@@ -81,7 +81,7 @@ function App() {
         });
     }
 
-    function changeFilter(value: FilterValuesType, todolistID: string) {
+    function changeFilter(todolistID: string, value: FilterValuesType) {
         let todolist = todolists.find((tl) => tl.id === todolistID);
         if (todolist) {
             todolist.filter = value;

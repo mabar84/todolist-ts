@@ -1,4 +1,4 @@
-import {FilterValuesType, TodolistType} from "../App";
+import {FilterValuesType, TodolistType} from "../AppWithRedux";
 import {v1} from "uuid";
 
 export type RemoveTodolistActionType = {
@@ -35,8 +35,10 @@ const initialState: Array<TodolistType> = []
 export const todolistsReducer = (state: Array<TodolistType> = initialState, action: ActionsType): Array<TodolistType> => {
 
     switch (action.type) {
-        case 'REMOVE-TODOLIST':
+        case 'REMOVE-TODOLIST': {
+            console.log(state)
             return state.filter(tl => tl.id !== action.id)
+        }
         case 'ADD-TODOLIST':
             return [{id: action.todolistId, title: action.title, filter: "all"}, ...state]
         case 'CHANGE-TODOLIST-TITLE': {
@@ -47,11 +49,27 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
             return [...state]
         }
         case 'CHANGE-TODOLIST-FILTER': {
+            console.log("change filter")
+            console.log(state)
+
             const todolist = state.find((tl) => tl.id === action.id);
             if (todolist) {
                 todolist.filter = action.filter;
             }
+            //debugger
             return [...state]
+            // let stateCopy = [...state]
+            // const todolist = stateCopy.find((tl) => tl.id === action.id);
+            // if (todolist) {
+            //     todolist.filter = action.filter;
+            // }
+
+            // const todolist = state.find((tl) => tl.id === action.id);
+            // if (todolist) {
+            //     todolist.filter = action.filter;
+            // }
+
+            // return stateCopy
         }
 
         default:
@@ -74,5 +92,3 @@ export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolist
 export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
     return {type: "CHANGE-TODOLIST-FILTER", id: id, filter: filter}
 }
-
-//state.map((m)=> m.id===action.id?{...m,title:action.title}:m)

@@ -152,8 +152,6 @@ function AppWithReducers() {
                             </Grid>
                         );
                     })}
-                    {/*<TodoList title="Second" tasks={task2}/>*/}
-                    {/*<TodoList title="Third" tasks={task3}/>*/}
                 </Grid>
             </Container>
         </div>

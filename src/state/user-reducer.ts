@@ -21,7 +21,6 @@ export const userReducer = (state: StateType, action: ActionType): StateType => 
                 childrenCount: state.childrenCount + 1
             }
         case "CHANGE-NAME":
-            //const newName = 'Viktor'
             return {
                 ...state,
                 name: action.newName

@@ -103,11 +103,9 @@ test('new property with new array should be added when new todolist is added', (
         throw Error("new key should be added")
     }
 
-
     expect(keys.length).toBe(3)
     expect(endState[newKey]).toEqual([])
 })
-
 
 test('property with todolistId should be deleted', () => {
     const startState: TasksStateType = {

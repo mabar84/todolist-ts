@@ -56,20 +56,7 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
             if (todolist) {
                 todolist.filter = action.filter;
             }
-            //debugger
             return [...state]
-            // let stateCopy = [...state]
-            // const todolist = stateCopy.find((tl) => tl.id === action.id);
-            // if (todolist) {
-            //     todolist.filter = action.filter;
-            // }
-
-            // const todolist = state.find((tl) => tl.id === action.id);
-            // if (todolist) {
-            //     todolist.filter = action.filter;
-            // }
-
-            // return stateCopy
         }
 
         default:

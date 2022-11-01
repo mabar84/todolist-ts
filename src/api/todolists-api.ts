@@ -77,12 +77,11 @@ export const todolitstsAPI = {
     },
     updateTask(
         todolistId: string, taskId: string, title: string, description: string,
-        completed: boolean, status: number, priority: number, startDate: string, deadline: string) {
+        status: number, priority: number, startDate: string, deadline: string) {
         return instance.put<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`,
             {
                 title,
                 description,
-                completed,
                 status,
                 priority,
                 startDate,

@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {TodolistType} from "../api/todolists-api";
 
+
 export type RemoveTodolistActionType = {
     type: "REMOVE-TODOLIST"
     id: string

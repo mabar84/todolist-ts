@@ -1,28 +1,22 @@
-import React, {useCallback} from "react";
-import "./AppWithRedux";
-import {TodoList} from "./TodoList";
-import {AddItemForm} from "./AddItemForm";
+import React, {useCallback, useEffect} from 'react';
+import './AppWithRedux';
+import {TodoList} from './TodoList';
+import {AddItemForm} from './AddItemForm';
 import {
-    AppBar,
-    Button,
-    Container,
-    Grid,
-    IconButton,
-    Paper,
-    Toolbar,
-    Typography,
-} from "@mui/material";
-import {Menu} from "@mui/icons-material";
+    AppBar, Button, Container, Grid, IconButton, Paper,
+    Toolbar, Typography,
+} from '@mui/material';
+import {Menu} from '@mui/icons-material';
 import {
     addTodolistAC,
     changeTodolistTitleAC,
     changeTodolistFilterAC,
-    removeTodolistAC, FilterValuesType, TodolistDomainType
-} from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./state/store";
-import {TaskStatuses, TaskType} from "./api/todolists-api";
+    removeTodolistAC, FilterValuesType, TodolistDomainType, fetchTodolistsTC
+} from './state/todolists-reducer';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootState} from './state/store';
+import {TaskStatuses, TaskType} from './api/todolists-api';
 
 export type TasksStateType = {
     [key: string]: TaskType[];
@@ -30,11 +24,14 @@ export type TasksStateType = {
 
 function AppWithRedux() {
 
-    console.log("app is called")
-
     const todolists = useSelector<AppRootState, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(fetchTodolistsTC)
+    }, [])
 
     const removeTask = useCallback((todolistID: string, id: string) => {
         dispatch(removeTaskAC(todolistID, id))
@@ -89,8 +86,8 @@ function AppWithRedux() {
                 </Toolbar>
             </AppBar>
 
-            <Container fixed style={{padding: "10px"}}>
-                <Grid container style={{paddingTop: "10px", paddingBottom: "20px"}}>
+            <Container fixed style={{padding: '10px'}}>
+                <Grid container style={{paddingTop: '10px', paddingBottom: '20px'}}>
                     <AddItemForm addItem={addTodolist}/>
                 </Grid>
 
@@ -101,7 +98,7 @@ function AppWithRedux() {
 
                         return (
                             <Grid item key={tl.id}>
-                                <Paper elevation={3} style={{padding: "10px"}}>
+                                <Paper elevation={3} style={{padding: '10px'}}>
                                     <TodoList
                                         key={tl.id}
                                         id={tl.id}

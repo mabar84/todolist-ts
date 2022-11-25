@@ -14,8 +14,5 @@ export type AppRootState = ReturnType<typeof store.getState>
 export type AppDispatch = ThunkDispatch<AppRootState, unknown, AnyAction>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, AnyAction>
 
-
-//export const store = configureStore(rootReducer)
-
 // @ts-ignore
 window.store = store

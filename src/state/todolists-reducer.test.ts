@@ -5,6 +5,7 @@ import {
     todolistsReducer
 } from './todolists-reducer';
 import {v1} from 'uuid';
+import {tasksReducer} from './tasks-reducer';
 
 let todolistId1 = v1()
 let todolistId2 = v1()
@@ -52,4 +53,14 @@ test('todolists should be set to the state', () => {
     const endState = todolistsReducer([], action)
 
     expect(endState.length).toBe(2)
+})
+
+test('empty arrays should be added when we set todolists', () => {
+    const action = setTodolistsAC(startState)
+    const endState = tasksReducer({}, action)
+    const keys = Object.keys(endState)
+    
+    expect(keys.length).toBe(2)
+    expect(endState[todolistId1]).toEqual([])
+    expect(endState[todolistId2]).toEqual([])
 })

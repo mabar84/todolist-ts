@@ -1,4 +1,3 @@
-import {v1} from 'uuid';
 import {TodolistType, todolitstsAPI} from '../api/todolists-api';
 import {AppThunk} from './store';
 
@@ -128,7 +127,7 @@ export const addTodolistTC = (titleTodolist: string): AppThunk => {
 export const deleteTodolistTC = (todolistID: string): AppThunk => {
     return (dispatch) => {
         todolitstsAPI.deleteTodolist(todolistID)
-            .then((res) => {
+            .then(() => {
                 dispatch(removeTodolistAC(todolistID))
             })
     }

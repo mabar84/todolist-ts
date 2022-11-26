@@ -8,12 +8,11 @@ import {
 } from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {
-    addTodolistAC,
     changeTodolistTitleAC,
     changeTodolistFilterAC,
-    removeTodolistAC, FilterValuesType, setTodolistsTC, deleteTodolistTC, addTodolistTC
+    FilterValuesType, setTodolistsTC, deleteTodolistTC, addTodolistTC
 } from './state/todolists-reducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
+import {addTaskTC, changeTaskStatusAC, changeTaskTitleAC, deleteTaskTC} from './state/tasks-reducer';
 import {TaskStatuses, TaskType} from './api/todolists-api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
@@ -32,12 +31,12 @@ function AppWithRedux() {
     }, [])
 
     const removeTask = useCallback((todolistID: string, id: string) => {
-        dispatch(removeTaskAC(todolistID, id))
+        dispatch(deleteTaskTC(todolistID, id))
     }, [dispatch])
 
     const addTask = useCallback((todolistID: string, newTaskTitle: string) => {
-        dispatch(addTaskAC(todolistID, newTaskTitle))
-    }, [dispatch])
+        dispatch(addTaskTC(todolistID, newTaskTitle))
+    }, [])
 
     const changeTaskStatus = useCallback((todolistID: string, taskId: string, status: TaskStatuses) => {
         dispatch(changeTaskStatusAC(todolistID, taskId, status))

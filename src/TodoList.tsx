@@ -4,7 +4,7 @@ import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import {Task} from './Task';
-import {FilterValuesType, setTodolistsTC} from './state/todolists-reducer';
+import {FilterValuesType} from './state/todolists-reducer';
 import {TaskStatuses, TaskType} from './api/todolists-api';
 import {useAppDispatch} from './hooks/hooks';
 import {setTasksTC} from './state/tasks-reducer';

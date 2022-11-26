@@ -28,7 +28,6 @@ type PropsType = {
 };
 
 export const TodoList = React.memo((props: PropsType) => {
-
     const dispatch = useAppDispatch()
 
     useEffect(() => {

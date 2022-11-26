@@ -1,11 +1,13 @@
 import {Delete} from '@mui/icons-material';
 import {Button, IconButton} from '@mui/material';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import {Task} from './Task';
-import {FilterValuesType} from './state/todolists-reducer';
+import {FilterValuesType, setTodolistsTC} from './state/todolists-reducer';
 import {TaskStatuses, TaskType} from './api/todolists-api';
+import {useAppDispatch} from './hooks/hooks';
+import {setTasksTC} from './state/tasks-reducer';
 
 type PropsType = {
     id: string;
@@ -26,6 +28,12 @@ type PropsType = {
 };
 
 export const TodoList = React.memo((props: PropsType) => {
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(setTasksTC(props.id))
+    }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(props.id, title);

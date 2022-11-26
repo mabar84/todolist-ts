@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {
-    changeTodolistTitleAC,
+    changeTodolistTitleTC,
     changeTodolistFilterAC,
     FilterValuesType, setTodolistsTC, deleteTodolistTC, addTodolistTC
 } from './state/todolists-reducer';
@@ -53,11 +53,11 @@ function AppWithRedux() {
 
     const removeTodolist = useCallback((todolistID: string) => {
         dispatch(deleteTodolistTC(todolistID))
-    }, [dispatch])
+    }, [])
 
-    const changeTodolistTitle = useCallback((id: string, title: string) => {
-        dispatch(changeTodolistTitleAC(id, title))
-    }, [dispatch])
+    const changeTodolistTitle = useCallback((todolistID: string, newTodolistTitle: string) => {
+        dispatch(changeTodolistTitleTC(todolistID, newTodolistTitle))
+    }, [])
 
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title))

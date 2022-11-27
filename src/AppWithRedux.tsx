@@ -12,7 +12,13 @@ import {
     changeTodolistFilterAC,
     FilterValuesType, setTodolistsTC, deleteTodolistTC, addTodolistTC
 } from './state/todolists-reducer';
-import {addTaskTC, changeTaskStatusAC, changeTaskTitleAC, deleteTaskTC} from './state/tasks-reducer';
+import {
+    addTaskTC,
+    changeTaskStatusAC,
+    changeTaskStatusTC,
+    changeTaskTitleAC,
+    deleteTaskTC
+} from './state/tasks-reducer';
 import {TaskStatuses, TaskType} from './api/todolists-api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 
@@ -39,7 +45,7 @@ function AppWithRedux() {
     }, [])
 
     const changeTaskStatus = useCallback((todolistID: string, taskId: string, status: TaskStatuses) => {
-        dispatch(changeTaskStatusAC(todolistID, taskId, status))
+        dispatch(changeTaskStatusTC(todolistID, taskId, status))
     }, [dispatch])
 
     const changeTaskTitle = useCallback((todolistID: string, taskId: string, newTitle: string) => {

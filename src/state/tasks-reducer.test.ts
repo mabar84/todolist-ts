@@ -1,5 +1,5 @@
 import {TasksStateType} from '../AppWithRedux';
-import {addTaskAC, changeTaskStatusAC, removeTaskAC, tasksReducer} from './tasks-reducer';
+import {addTaskAC, updateTaskAC, removeTaskAC, tasksReducer} from './tasks-reducer';
 import {addTodolistAC, removeTodolistAC} from './todolists-reducer';
 import {TaskPriorities, TaskStatuses} from '../api/todolists-api';
 
@@ -108,15 +108,7 @@ test('correct task should be added to correct array', () => {
     expect(endState['todolistId2'][0].status).toBe(0)
 })
 
-test('status of specified task should be changed', () => {
-    const action = changeTaskStatusAC('todolistId2', '2', TaskStatuses.New)
-    const endState = tasksReducer(startState, action)
-
-    expect(endState['todolistId2'][1].status).toBeFalsy()
-    expect(endState['todolistId1'][1].status).toBeTruthy()
-})
-
-test('new property with new array should be added when new todolist is added', () => {
+test('new array should be added when new todolist is added', () => {
     const action = addTodolistAC('title no matter', 'todolistId3')
     const endState = tasksReducer(startState, action)
     const keys = Object.keys(endState)

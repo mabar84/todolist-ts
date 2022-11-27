@@ -152,19 +152,10 @@ export const addTaskTC = (todolistId: string, taskTitle: string): AppThunk => {
             })
     }
 }
-//
-// export const changeTaskTitleTC = (todolistID: string, taskId: string, newTaskTitle: string): AppThunk => {
-//     return (dispatch) => {
-//         todolitstsAPI.updateTask(todolistID, taskId, newTaskTitle)
-//             .then(() => {
-//                 dispatch(changeTaskTitleAC(todolistID, taskId, newTaskTitle))
-//             })
-//     }
-// }
 
 export const changeTaskStatusTC = (todolistID: string, taskId: string, status: TaskStatuses): AppThunk => {
-    return (dispatch, getState: () => AppRootState) => {
 
+    return (dispatch, getState: () => AppRootState) => {
         const state = getState()
         const task = state.tasks[todolistID].find(t => t.id === taskId)
 
@@ -183,9 +174,35 @@ export const changeTaskStatusTC = (todolistID: string, taskId: string, status: T
         }
 
         todolitstsAPI.updateTask(todolistID, taskId, model)
-            .then((res) => {
-                console.log(res.data)
+            .then(() => {
                 dispatch(changeTaskStatusAC(todolistID, taskId, status))
+            })
+    }
+}
+
+export const changeTaskTitleTC = (todolistID: string, taskId: string, newTitle: string): AppThunk => {
+
+    return (dispatch, getState: () => AppRootState) => {
+        const state = getState()
+        const task = state.tasks[todolistID].find(t => t.id === taskId)
+
+        if (!task) {
+            console.warn('task not found in the state')
+            return
+        }
+
+        const model: UpdateTaskModelType = {
+            title: newTitle,
+            description: task.description,
+            status: task.status,
+            priority: task.priority,
+            startDate: task.startDate,
+            deadline: task.deadline,
+        }
+
+        todolitstsAPI.updateTask(todolistID, taskId, model)
+            .then(() => {
+                dispatch(changeTaskTitleAC(todolistID, taskId, newTitle))
             })
     }
 }

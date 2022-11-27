@@ -3,8 +3,7 @@ import './AppWithRedux';
 import {TodoList} from './TodoList';
 import {AddItemForm} from './AddItemForm';
 import {
-    AppBar, Button, Container, Grid, IconButton, Paper,
-    Toolbar, Typography,
+    AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography,
 } from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {
@@ -13,11 +12,7 @@ import {
     FilterValuesType, setTodolistsTC, deleteTodolistTC, addTodolistTC
 } from './state/todolists-reducer';
 import {
-    addTaskTC,
-    changeTaskStatusAC,
-    changeTaskStatusTC,
-    changeTaskTitleAC,
-    deleteTaskTC
+    addTaskTC, changeTaskStatusTC, changeTaskTitleTC, deleteTaskTC
 } from './state/tasks-reducer';
 import {TaskStatuses, TaskType} from './api/todolists-api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
@@ -38,7 +33,7 @@ function AppWithRedux() {
 
     const removeTask = useCallback((todolistID: string, id: string) => {
         dispatch(deleteTaskTC(todolistID, id))
-    }, [dispatch])
+    }, [])
 
     const addTask = useCallback((todolistID: string, newTaskTitle: string) => {
         dispatch(addTaskTC(todolistID, newTaskTitle))
@@ -46,11 +41,11 @@ function AppWithRedux() {
 
     const changeTaskStatus = useCallback((todolistID: string, taskId: string, status: TaskStatuses) => {
         dispatch(changeTaskStatusTC(todolistID, taskId, status))
-    }, [dispatch])
+    }, [])
 
     const changeTaskTitle = useCallback((todolistID: string, taskId: string, newTitle: string) => {
-        dispatch(changeTaskTitleAC(todolistID, taskId, newTitle))
-    }, [dispatch])
+        dispatch(changeTaskTitleTC(todolistID, taskId, newTitle))
+    }, [])
 
     const changeFilter = useCallback((todolistID: string, value: FilterValuesType) => {
         const action = changeTodolistFilterAC(todolistID, value)

@@ -2,18 +2,13 @@ import React, {useCallback, useEffect} from 'react';
 import './AppWithRedux';
 import {TodoList} from './TodoList';
 import {AddItemForm} from './AddItemForm';
-import {
-    AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography,
-} from '@mui/material';
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography,} from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {
-    changeTodolistTitleTC,
-    changeTodolistFilterAC,
-    FilterValuesType, setTodolistsTC, deleteTodolistTC, addTodolistTC
+    addTodolistTC, changeTodolistFilterAC, changeTodolistTitleTC,
+    deleteTodolistTC, FilterValuesType, setTodolistsTC
 } from './state/todolists-reducer';
-import {
-    addTaskTC, deleteTaskTC, updateTaskTC
-} from './state/tasks-reducer';
+import {addTaskTC, deleteTaskTC, updateTaskTC} from './state/tasks-reducer';
 import {TaskStatuses, TaskType} from './api/todolists-api';
 import {useAppDispatch, useAppSelector} from './hooks/hooks';
 

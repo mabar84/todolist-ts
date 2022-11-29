@@ -7,30 +7,17 @@ const initialState: TasksStateType = {}
 
 export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
-        case 'REMOVE-TASK': {
-            const stateCopy = {...state}
-            const tasks = stateCopy[action.todolistId]
-            stateCopy[action.todolistId] = tasks.filter(t => t.id !== action.taskId)
-            return stateCopy
-        }
-        case 'ADD-TASK': {
-            const stateCopy = {...state}
-            const tasks = stateCopy[action.task.todoListId]
-            const newTask = action.task
-            stateCopy[action.task.todoListId] = [newTask, ...tasks]
-            return stateCopy
-        }
-        case 'UPDATE-TASK': {
-            const stateCopy = {...state}
-            let tasks = [...stateCopy[action.todolistId]]
-            stateCopy[action.todolistId] = tasks.map((t) => t.id === action.taskId ? {...t, ...action.model} : t)
-            return stateCopy
-        }
-        case 'ADD-TODOLIST': {
-            const stateCopy = {...state}
-            stateCopy[action.todolist.id] = []
-            return stateCopy
-        }
+        case 'REMOVE-TASK':
+            return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
+        case 'ADD-TASK':
+            return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
+        case 'UPDATE-TASK':
+            return {
+                ...state, [action.todolistId]: state[action.todolistId]
+                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
+            }
+        case 'ADD-TODOLIST':
+            return {...state, [action.todolist.id]: []}
         case 'REMOVE-TODOLIST': {
             const stateCopy = {...state}
             delete stateCopy[action.id]
@@ -39,16 +26,12 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'SET-TODOLISTS': {
             const stateCopy = {...state}
             action.todolists.forEach(tl => {
-                    stateCopy[tl.id] = []
-                }
-            )
+                stateCopy[tl.id] = []
+            })
             return stateCopy
         }
-        case 'SET-TASKS': {
-            const stateCopy = {...state}
-            stateCopy[action.todolistId] = action.tasks
-            return stateCopy
-        }
+        case 'SET-TASKS':
+            return {...state, [action.todolistId]: action.tasks}
         default:
             return state
     }

@@ -17,7 +17,6 @@ export type TasksStateType = {
 };
 
 function AppWithRedux() {
-
     const todolists = useAppSelector(state => state.todolists)
     const tasks = useAppSelector(state => state.tasks)
     const dispatch = useAppDispatch()

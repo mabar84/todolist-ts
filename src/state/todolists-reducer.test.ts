@@ -24,10 +24,11 @@ test('correct todolist should be removed', () => {
 })
 
 test('correct todolist should be added', () => {
-    const endState = todolistsReducer(startState, addTodolistAC(newTodolistTitle, todolistId1))
+    const endState = todolistsReducer(startState,
+        addTodolistAC({id: 'bla', title: 'blabla', order: 0, addedDate: ''}))
 
     expect(endState.length).toBe(3)
-    expect(endState[0].title).toBe(newTodolistTitle)
+    expect(endState[0].title).toBe('blabla')
     expect(endState[0].filter).toBe('all')
     expect(endState[0].id).toBeDefined()
 })
@@ -59,7 +60,7 @@ test('empty arrays should be added when we set todolists', () => {
     const action = setTodolistsAC(startState)
     const endState = tasksReducer({}, action)
     const keys = Object.keys(endState)
-    
+
     expect(keys.length).toBe(2)
     expect(endState[todolistId1]).toEqual([])
     expect(endState[todolistId2]).toEqual([])

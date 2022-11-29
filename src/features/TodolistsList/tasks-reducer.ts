@@ -1,6 +1,6 @@
-import {TasksStateType} from '../AppWithRedux';
-import {TaskPriorities, TaskStatuses, TaskType, todolitstsAPI, UpdateTaskModelType} from '../api/todolists-api';
-import {AppRootState, AppThunk} from './store';
+import {TasksStateType} from '../../app/App';
+import {TaskPriorities, TaskStatuses, TaskType, todolitstsAPI, UpdateTaskModelType} from '../../api/todolists-api';
+import {AppRootState, AppThunk} from '../../app/store';
 import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
 
 const initialState: TasksStateType = {}

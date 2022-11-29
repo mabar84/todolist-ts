@@ -63,6 +63,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
     }
 }
 
+//actions
 export const removeTaskAC = (todolistId: string, taskId: string) => (
     {type: 'REMOVE-TASK', todolistId, taskId} as const)
 
@@ -75,6 +76,7 @@ export const updateTaskAC = (todolistId: string, taskId: string, model: UpdateDo
 export const setTasksAC = (todolistId: string, tasks: Array<TaskType>) => (
     {type: 'SET-TASKS', todolistId, tasks} as const)
 
+//thunks
 export const setTasksTC = (todolistId: string): AppThunk => {
     return (dispatch) => {
         todolitstsAPI.getTasks(todolistId)
@@ -112,8 +114,6 @@ export type UpdateDomainTaskModelType = {
 }
 
 export const updateTaskTC = (todolistID: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk => {
-
-    console.log('updateTaskTC')
 
     return (dispatch, getState: () => AppRootState) => {
         const state = getState()

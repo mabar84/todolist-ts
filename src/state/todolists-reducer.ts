@@ -8,12 +8,12 @@ type ActionsType =
     | ReturnType<typeof changeTodolistFilterAC>
     | ReturnType<typeof setTodolistsAC>
 
-const initialState: Array<TodolistDomainType> = []
-
 export type FilterValuesType = 'all' | 'active' | 'completed';
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
 }
+
+const initialState: Array<TodolistDomainType> = []
 
 export const todolistsReducer = (state: Array<TodolistDomainType> = initialState,
                                  action: ActionsType): Array<TodolistDomainType> => {
@@ -57,8 +57,9 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
     }
 }
 
-export const removeTodolistAC = (todolistId: string) => (
-    {type: 'REMOVE-TODOLIST', id: todolistId} as const)
+//action-creators
+export const removeTodolistAC = (id: string) => (
+    {type: 'REMOVE-TODOLIST', id} as const)
 
 export const addTodolistAC = (title: string, todolistId: string) => (
     {type: 'ADD-TODOLIST', title, todolistId} as const)
@@ -72,6 +73,7 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => 
 export const setTodolistsAC = (todolists: Array<TodolistType>) => (
     {type: 'SET-TODOLISTS', todolists} as const)
 
+//thunk-creators
 export const setTodolistsTC = (): AppThunk => {
     return (dispatch) => {
         todolitstsAPI.getTodolitsts()

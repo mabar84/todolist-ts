@@ -1,9 +1,10 @@
 import React from 'react';
 import './App';
-import {AppBar, Button, Container, IconButton, Toolbar, Typography,} from '@mui/material';
+import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography,} from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {TaskType} from '../api/todolists-api';
 import {TodolistsList} from '../features/TodolistsList/TodolistsList';
+import {CustomizedSnackbars} from '../components/ErrorSnackbar/ErrorSnackbar';
 
 export type TasksStateType = {
     [key: string]: TaskType[];
@@ -12,6 +13,7 @@ export type TasksStateType = {
 function App() {
     return (
         <div className="App">
+            <CustomizedSnackbars/>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -28,6 +30,7 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                {/*<LinearProgress/>*/}
             </AppBar>
             <Container fixed style={{padding: '10px'}}>
                 <TodolistsList/>

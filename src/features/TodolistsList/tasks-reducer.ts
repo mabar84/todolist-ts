@@ -2,6 +2,7 @@ import {TasksStateType} from '../../app/App';
 import {TaskPriorities, TaskStatuses, TaskType, todolitstsAPI, UpdateTaskModelType} from '../../api/todolists-api';
 import {AppRootState, AppThunk} from '../../app/store';
 import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
+import {appSetErrorAC} from '../../app/app-reducer';
 
 const initialState: TasksStateType = {}
 
@@ -63,7 +64,15 @@ export const deleteTaskTC = (todolistId: string, taskId: string): AppThunk => (d
 export const addTaskTC = (todolistId: string, taskTitle: string): AppThunk => (dispatch) => {
     todolitstsAPI.createTask(todolistId, taskTitle)
         .then((res) => {
-            dispatch(addTaskAC(res.data.data.item))
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(appSetErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(appSetErrorAC('some error'))
+                }
+            }
         })
 }
 export const updateTaskTC = (todolistID: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk =>

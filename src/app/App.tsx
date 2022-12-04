@@ -4,7 +4,7 @@ import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typograp
 import {Menu} from '@mui/icons-material';
 import {TaskType} from '../api/todolists-api';
 import {TodolistsList} from '../features/TodolistsList/TodolistsList';
-import {CustomizedSnackbars} from '../components/ErrorSnackbar/ErrorSnackbar';
+import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 
 export type TasksStateType = {
     [key: string]: TaskType[];
@@ -13,7 +13,7 @@ export type TasksStateType = {
 function App() {
     return (
         <div className="App">
-            <CustomizedSnackbars/>
+            <ErrorSnackbar/>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton

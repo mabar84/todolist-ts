@@ -12,8 +12,8 @@ let todolistId2 = v1()
 let newTodolistTitle = 'NewTitle'
 
 const startState: Array<TodolistDomainType> = [
-    {id: todolistId1, title: 'What to learn', addedDate: '', order: 0, filter: 'all'},
-    {id: todolistId2, title: 'What to buy', addedDate: '', order: 0, filter: 'all'}
+    {id: todolistId1, title: 'What to learn', addedDate: '', order: 0, filter: 'all', entityStatus: 'idle'},
+    {id: todolistId2, title: 'What to buy', addedDate: '', order: 0, filter: 'all', entityStatus: 'idle'}
 ]
 
 test('correct todolist should be removed', () => {

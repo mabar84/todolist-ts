@@ -5,12 +5,15 @@ import {Menu} from '@mui/icons-material';
 import {TaskType} from '../api/todolists-api';
 import {TodolistsList} from '../features/TodolistsList/TodolistsList';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
+import {useAppSelector} from '../hooks/hooks';
 
 export type TasksStateType = {
     [key: string]: TaskType[];
 };
 
 function App() {
+    const status = useAppSelector(state => state.app.status)
+
     return (
         <div className="App">
             <ErrorSnackbar/>
@@ -30,7 +33,7 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-                {/*<LinearProgress/>*/}
+                {status === "loading" && <LinearProgress/>}
             </AppBar>
             <Container fixed style={{padding: '10px'}}>
                 <TodolistsList/>

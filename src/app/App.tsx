@@ -11,7 +11,11 @@ export type TasksStateType = {
     [key: string]: TaskType[];
 };
 
-function App() {
+type PropsType = {
+    demo?: boolean
+}
+
+function App({demo = false}: PropsType) {
     const status = useAppSelector(state => state.app.status)
 
     return (
@@ -33,10 +37,10 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-                {status === "loading" && <LinearProgress/>}
+                {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed style={{padding: '10px'}}>
-                <TodolistsList/>
+                <TodolistsList demo={demo}/>
             </Container>
         </div>
     )

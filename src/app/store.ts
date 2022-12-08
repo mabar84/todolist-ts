@@ -4,7 +4,7 @@ import {todolistsReducer} from '../features/TodolistsList/todolists-reducer';
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {appReducer} from './app-reducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     todolists: todolistsReducer,
     tasks: tasksReducer,
     app: appReducer

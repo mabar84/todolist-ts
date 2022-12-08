@@ -15,15 +15,15 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 
 // action-creators
-export const appSetStatusAC = (status: RequestStatusType) => (
+export const setAppStatusAC = (status: RequestStatusType) => (
     {type: 'APP/SET-STATUS', status} as const)
-export const appSetErrorAC = (error: string | null) => (
+export const setAppErrorAC = (error: string | null) => (
     {type: 'APP/SET-ERROR', error} as const)
 
 // types
 type ActionsType =
-    | ReturnType<typeof appSetStatusAC>
-    | ReturnType<typeof appSetErrorAC>
+    | ReturnType<typeof setAppStatusAC>
+    | ReturnType<typeof setAppErrorAC>
 
 export type InitialStateType = {
     error: string | null,

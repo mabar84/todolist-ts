@@ -16,7 +16,6 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
-            entityStatus: 'idle'
         },
         {
             id: '2', title: 'JS', status: TaskStatuses.Completed,
@@ -27,7 +26,6 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
-            entityStatus: 'idle'
         },
         {
             id: '3', title: 'React', status: TaskStatuses.New,
@@ -38,7 +36,6 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
-            entityStatus: 'idle'
         }
     ],
     'todolistId2': [
@@ -51,7 +48,6 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
-            entityStatus: 'idle'
         },
         {
             id: '2', title: 'milk', status: TaskStatuses.Completed,
@@ -62,7 +58,6 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
-            entityStatus: 'idle'
         },
         {
             id: '3', title: 'tea', status: TaskStatuses.New,
@@ -73,7 +68,6 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
-            entityStatus: 'idle'
         }
     ]
 }

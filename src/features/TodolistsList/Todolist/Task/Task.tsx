@@ -3,7 +3,7 @@ import {Checkbox, IconButton} from '@mui/material';
 import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
 import {Delete} from '@mui/icons-material';
 import {TaskStatuses, TaskType} from '../../../../api/todolists-api';
-import {DomainTaskType} from '../../tasks-reducer';
+// import {TaskType} from '../../tasks-reducer';
 
 type TaskPropsType = {
     changeTaskStatus: (todolistID: string, taskId: string, status: TaskStatuses) => void;
@@ -13,7 +13,7 @@ type TaskPropsType = {
         newTitle: string
     ) => void;
     removeTask: (todolistID: string, id: string) => void;
-    task: DomainTaskType
+    task: TaskType
 }
 export const Task = React.memo((props: TaskPropsType) => {
 

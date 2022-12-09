@@ -7,11 +7,11 @@ import {Task} from './Task/Task';
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer';
 import {TaskStatuses, TaskType} from '../../../api/todolists-api';
 import {useAppDispatch} from '../../../hooks/hooks';
-import {DomainTaskType, setTasksTC} from '../tasks-reducer';
+import {setTasksTC} from '../tasks-reducer';
 
 type PropsType = {
     todolist: TodolistDomainType;
-    tasks: Array<DomainTaskType>;
+    tasks: Array<TaskType>;
     addTask: (todolistID: string, title: string) => void;
     changeFilter: (todolistID: string, value: FilterValuesType) => void;
     removeTodolist: (todolistID: string) => void;
@@ -73,7 +73,7 @@ export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
             <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
 
             <div>
-                {tasksForTodolist.map((task: DomainTaskType) => <Task
+                {tasksForTodolist.map((task: TaskType) => <Task
                         changeTaskStatus={props.changeTaskStatus}
                         changeTaskTitle={props.changeTaskTitle}
                         removeTask={props.removeTask}

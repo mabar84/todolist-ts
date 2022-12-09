@@ -24,7 +24,6 @@ export const TaskBaseExample = () => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             }}
             changeTaskStatus={changeStatusCallback}
             changeTaskTitle={changeTaskTitleCallback}
@@ -39,7 +38,6 @@ export const TaskBaseExample = () => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             }}
             changeTaskStatus={changeStatusCallback}
             changeTaskTitle={changeTaskTitleCallback}

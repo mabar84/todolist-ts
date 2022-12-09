@@ -1,8 +1,7 @@
 import {TasksStateType} from '../../app/App';
 import {
     TaskPriorities,
-    TaskStatuses,
-    TaskType,
+    TaskStatuses, TaskType,
     TodolistType,
     todolitstsAPI,
     UpdateTaskModelType
@@ -18,11 +17,11 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'REMOVE-TASK':
             return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
         case 'ADD-TASK':
-        // return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
+            return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
         case 'UPDATE-TASK':
             return {
-                // ...state, [action.todolistId]: state[action.todolistId]
-                //     .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
+                ...state, [action.todolistId]: state[action.todolistId]
+                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
             }
         case 'ADD-TODOLIST':
             return {...state, [action.todolist.id]: []}
@@ -133,6 +132,6 @@ export type UpdateDomainTaskModelType = {
     deadline?: string
 }
 
-export type DomainTaskType = TaskType & {
-    entityStatus: RequestStatusType
-}
+// export type TaskType = TaskType & {
+//     entityStatus: RequestStatusType
+// }

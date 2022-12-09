@@ -17,12 +17,12 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
     switch (action.type) {
         case 'REMOVE-TASK':
             return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
-        // case 'ADD-TASK':
-        //     return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
+        case 'ADD-TASK':
+        // return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
         case 'UPDATE-TASK':
             return {
-                ...state, [action.todolistId]: state[action.todolistId]
-                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
+                // ...state, [action.todolistId]: state[action.todolistId]
+                //     .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
             }
         case 'ADD-TODOLIST':
             return {...state, [action.todolist.id]: []}

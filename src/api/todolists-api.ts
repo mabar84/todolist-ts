@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {RequestStatusType} from '../app/app-reducer';
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1',
@@ -54,6 +55,7 @@ export type TaskType = {
     addedDate: string
     order: number
     priority: TaskPriorities
+    // entityStatus: RequestStatusType
 }
 export type UpdateTaskModelType = {
     title: string,

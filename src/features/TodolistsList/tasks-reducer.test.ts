@@ -1,5 +1,4 @@
-import {TasksStateType} from '../../app/App';
-import {addTaskAC, removeTaskAC, tasksReducer} from './tasks-reducer';
+import {addTaskAC, removeTaskAC, tasksReducer, TasksStateType} from './tasks-reducer';
 import {addTodolistAC, removeTodolistAC} from './todolists-reducer';
 import {TaskPriorities, TaskStatuses} from '../../api/todolists-api';
 
@@ -16,6 +15,7 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
+            entityStatus: 'idle'
         },
         {
             id: '2', title: 'JS', status: TaskStatuses.Completed,
@@ -26,6 +26,7 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
+            entityStatus: 'idle'
         },
         {
             id: '3', title: 'React', status: TaskStatuses.New,
@@ -36,6 +37,7 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
+            entityStatus: 'idle'
         }
     ],
     'todolistId2': [
@@ -48,6 +50,7 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
+            entityStatus: 'idle'
         },
         {
             id: '2', title: 'milk', status: TaskStatuses.Completed,
@@ -58,6 +61,7 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
+            entityStatus: 'idle'
         },
         {
             id: '3', title: 'tea', status: TaskStatuses.New,
@@ -68,6 +72,7 @@ const startState: TasksStateType = {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
+            entityStatus: 'idle'
         }
     ]
 }
@@ -97,6 +102,7 @@ test('correct task should be added to correct array', () => {
             deadline: '',
             order: 0,
             priority: 0,
+            entityStatus: 'idle'
         }
     )
     const endState = tasksReducer(startState, action)

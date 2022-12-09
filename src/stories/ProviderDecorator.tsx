@@ -33,9 +33,11 @@ const initState: AppRootState = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
-                id: '2', title: 'JS', status: TaskStatuses.Completed,
+                id: '2', title: 'JS',
+                status: TaskStatuses.Completed,
                 todoListId: 'todolistId1',
                 description: '',
                 startDate: '',
@@ -43,9 +45,11 @@ const initState: AppRootState = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
-                id: '3', title: 'React', status: TaskStatuses.New,
+                id: '3', title: 'React',
+                status: TaskStatuses.New,
                 todoListId: 'todolistId1',
                 description: '',
                 startDate: '',
@@ -53,11 +57,13 @@ const initState: AppRootState = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }
         ],
         'todolistId2': [
             {
-                id: '1', title: 'bread', status: TaskStatuses.New,
+                id: '1', title: 'bread',
+                status: TaskStatuses.New,
                 todoListId: 'todolistId2',
                 description: '',
                 startDate: '',
@@ -65,9 +71,11 @@ const initState: AppRootState = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
-                id: '2', title: 'milk', status: TaskStatuses.Completed,
+                id: '2', title: 'milk',
+                status: TaskStatuses.Completed,
                 todoListId: 'todolistId2',
                 description: '',
                 startDate: '',
@@ -75,9 +83,11 @@ const initState: AppRootState = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
-                id: '3', title: 'tea', status: TaskStatuses.New,
+                id: '3', title: 'tea',
+                status: TaskStatuses.New,
                 todoListId: 'todolistId2',
                 description: '',
                 startDate: '',
@@ -85,6 +95,7 @@ const initState: AppRootState = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }
         ]
     },

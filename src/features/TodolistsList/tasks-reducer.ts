@@ -1,8 +1,6 @@
-import {TasksStateType} from '../../app/App';
 import {
     TaskPriorities,
     TaskStatuses, TaskType,
-    TodolistType,
     todolitstsAPI,
     UpdateTaskModelType
 } from '../../api/todolists-api';
@@ -47,7 +45,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
 // action-creators
 export const removeTaskAC = (todolistId: string, taskId: string) => (
     {type: 'REMOVE-TASK', todolistId, taskId} as const)
-export const addTaskAC = (task: TaskType) => (
+export const addTaskAC = (task: DomainTaskType) => (
     {type: 'ADD-TASK', task} as const)
 export const updateTaskAC = (todolistId: string, taskId: string, model: UpdateDomainTaskModelType) => (
     {type: 'UPDATE-TASK', todolistId, taskId, model} as const)
@@ -76,7 +74,8 @@ export const addTaskTC = (todolistId: string, taskTitle: string): AppThunk => (d
     todolitstsAPI.createTask(todolistId, taskTitle)
         .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(addTaskAC(res.data.data.item))
+                const task = {...res.data.data.item, entityStatus: 'idle'}
+                dispatch(addTaskAC(task))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 if (res.data.messages.length) {
@@ -150,6 +149,11 @@ export type UpdateDomainTaskModelType = {
     deadline?: string
 }
 
-// export type TaskType = TaskType & {
-//     entityStatus: RequestStatusType
-// }
+export type TasksStateType = {
+    [key: string]: DomainTaskType[];
+};
+
+export type DomainTaskType = TaskType & {
+    entityStatus: string
+    // entityStatus: RequestStatusType
+}

@@ -1,12 +1,7 @@
-import {
-    TaskPriorities,
-    TaskStatuses, TaskType,
-    todolitstsAPI,
-    UpdateTaskModelType
-} from '../../api/todolists-api';
+import {TaskPriorities, TaskStatuses, TaskType, todolitstsAPI, UpdateTaskModelType} from '../../api/todolists-api';
 import {AppRootState, AppThunk} from '../../app/store';
-import {addTodolistAC, FilterValuesType, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
-import {RequestStatusType, setAppErrorAC, setAppStatusAC} from '../../app/app-reducer';
+import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
+import {setAppErrorAC, setAppStatusAC} from '../../app/app-reducer';
 
 const initialState: TasksStateType = {}
 
@@ -37,6 +32,16 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         }
         case 'SET-TASKS':
             return {...state, [action.todolistId]: action.tasks.map(t => ({...t, entityStatus: 'idle'}))}
+        case 'CHANGE-TASK-ENTITY-STATUS': {
+            console.log(state)
+            return {
+                ...state,
+                [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {
+                    ...t,
+                    entityStatus: action.entityStatus
+                } : t)
+            }
+        }
         default:
             return state
     }
@@ -49,6 +54,8 @@ export const addTaskAC = (task: DomainTaskType) => (
     {type: 'ADD-TASK', task} as const)
 export const updateTaskAC = (todolistId: string, taskId: string, model: UpdateDomainTaskModelType) => (
     {type: 'UPDATE-TASK', todolistId, taskId, model} as const)
+export const changeTaskEntityStatusAC = (todolistId: string, taskId: string, entityStatus: string) => (
+    {type: 'CHANGE-TASK-ENTITY-STATUS', todolistId, taskId, entityStatus} as const)
 export const setTasksAC = (todolistId: string, tasks: Array<TaskType>) => (
     {type: 'SET-TASKS', todolistId, tasks} as const)
 
@@ -63,6 +70,7 @@ export const setTasksTC = (todolistId: string): AppThunk => (dispatch) => {
 }
 export const deleteTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTaskEntityStatusAC(todolistId, taskId, 'loading'))
     todolitstsAPI.deleteTask(todolistId, taskId)
         .then(() => {
             dispatch(removeTaskAC(todolistId, taskId))
@@ -135,6 +143,7 @@ type ActionsType =
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof addTaskAC>
     | ReturnType<typeof updateTaskAC>
+    | ReturnType<typeof changeTaskEntityStatusAC>
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof removeTodolistAC>
     | ReturnType<typeof addTodolistAC>
@@ -155,5 +164,78 @@ export type TasksStateType = {
 
 export type DomainTaskType = TaskType & {
     entityStatus: string
-    // entityStatus: RequestStatusType
 }
+
+// {
+//     "c73cb048-6b28-46b3-904f-88d5a9e89683": [
+//     {
+//         "id": "d0b9fc1c-c2f2-44cb-87e0-c6ef5919810d",
+//         "title": "as12",
+//         "description": null,
+//         "todoListId": "c73cb048-6b28-46b3-904f-88d5a9e89683",
+//         "order": 0,
+//         "status": 2,
+//         "priority": 1,
+//         "startDate": null,
+//         "deadline": null,
+//         "addedDate": "2022-12-09T12:23:54.317",
+//         "entityStatus": "idle"
+//     }
+// ],
+//     "29705533-dfe3-47ae-a130-f6c3b8f2dca3": [
+//     {
+//         "id": "af31f35a-116a-42ce-a5ad-ce494bed723d",
+//         "title": "we",
+//         "description": null,
+//         "todoListId": "29705533-dfe3-47ae-a130-f6c3b8f2dca3",
+//         "order": -1,
+//         "status": 0,
+//         "priority": 1,
+//         "startDate": null,
+//         "deadline": null,
+//         "addedDate": "2022-12-09T12:09:48.947",
+//         "entityStatus": "idle"
+//     },
+//     {
+//         "id": "b045bec2-56f1-445f-8780-af5c6ac1c789",
+//         "title": "ьтб",
+//         "description": null,
+//         "todoListId": "29705533-dfe3-47ae-a130-f6c3b8f2dca3",
+//         "order": 0,
+//         "status": 2,
+//         "priority": 1,
+//         "startDate": null,
+//         "deadline": null,
+//         "addedDate": "2022-12-09T11:16:07.293",
+//         "entityStatus": "idle"
+//     }
+// ],
+//     "a2d7eff7-80b6-4878-98bd-31bcecf43734": [
+//     {
+//         "id": "298fb298-53c9-4f13-a065-35ea3e395d4f",
+//         "title": "-0-0-0-0-",
+//         "description": null,
+//         "todoListId": "a2d7eff7-80b6-4878-98bd-31bcecf43734",
+//         "order": -1,
+//         "status": 2,
+//         "priority": 1,
+//         "startDate": null,
+//         "deadline": null,
+//         "addedDate": "2022-11-27T17:36:46.217",
+//         "entityStatus": "idle"
+//     },
+//     {
+//         "id": "a0943f82-5d66-4ec1-a482-691d9bf21e42",
+//         "title": "7777",
+//         "description": null,
+//         "todoListId": "a2d7eff7-80b6-4878-98bd-31bcecf43734",
+//         "order": 0,
+//         "status": 0,
+//         "priority": 1,
+//         "startDate": null,
+//         "deadline": null,
+//         "addedDate": "2022-11-27T17:36:44.313",
+//         "entityStatus": "idle"
+//     }
+// ]
+// }

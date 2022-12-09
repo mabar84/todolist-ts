@@ -5,7 +5,7 @@ import {AddItemForm} from '../../../components/AddItemForm/AddItemForm';
 import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import {Task} from './Task/Task';
 import {FilterValuesType, TodolistDomainType} from '../todolists-reducer';
-import {TaskStatuses, TaskType} from '../../../api/todolists-api';
+import {TaskStatuses} from '../../../api/todolists-api';
 import {useAppDispatch} from '../../../hooks/hooks';
 import {DomainTaskType, setTasksTC} from '../tasks-reducer';
 
@@ -73,7 +73,7 @@ export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
             <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
 
             <div>
-                {tasksForTodolist.map((task: TaskType) => <Task
+                {tasksForTodolist.map((task: DomainTaskType) => <Task
                         changeTaskStatus={props.changeTaskStatus}
                         changeTaskTitle={props.changeTaskTitle}
                         removeTask={props.removeTask}

@@ -77,6 +77,7 @@ export const addTaskTC = (todolistId: string, taskTitle: string): AppThunk => (d
         .then((res) => {
             if (res.data.resultCode === 0) {
                 dispatch(addTaskAC(res.data.data.item))
+                dispatch(setAppStatusAC('succeeded'))
             } else {
                 if (res.data.messages.length) {
                     dispatch(setAppErrorAC(res.data.messages[0]))
@@ -84,7 +85,11 @@ export const addTaskTC = (todolistId: string, taskTitle: string): AppThunk => (d
                     dispatch(setAppErrorAC('some error'))
                 }
             }
-            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setAppStatusAC('failed'))
+        })
+        .catch((error) => {
+            dispatch(setAppErrorAC(error.message))
+            dispatch(setAppStatusAC('failed'))
         })
 }
 export const updateTaskTC = (todolistID: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk =>
@@ -107,9 +112,22 @@ export const updateTaskTC = (todolistID: string, taskId: string, domainModel: Up
         }
         dispatch(setAppStatusAC('loading'))
         todolitstsAPI.updateTask(todolistID, taskId, apiModel)
-            .then(() => {
-                dispatch(updateTaskAC(todolistID, taskId, domainModel))
-                dispatch(setAppStatusAC('succeeded'))
+            .then((res) => {
+                if (res.data.resultCode === 0) {
+                    dispatch(updateTaskAC(todolistID, taskId, domainModel))
+                    dispatch(setAppStatusAC('succeeded'))
+                } else {
+                    if (res.data.messages.length) {
+                        dispatch(setAppErrorAC(res.data.messages[0]))
+                    } else {
+                        dispatch(setAppErrorAC('some error'))
+                    }
+                    dispatch(setAppStatusAC('failed'))
+                }
+            })
+            .catch((error) => {
+                dispatch(setAppErrorAC(error.message))
+                dispatch(setAppStatusAC('failed'))
             })
     }
 

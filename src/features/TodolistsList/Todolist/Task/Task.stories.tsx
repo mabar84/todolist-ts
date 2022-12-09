@@ -23,12 +23,12 @@ export const TaskBaseExample = () => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }}
             changeTaskStatus={changeStatusCallback}
             changeTaskTitle={changeTaskTitleCallback}
             removeTask={removeTaskCallback}
-            todolistID={'todolistIs1'}
         />
         <Task
             task={{
@@ -38,12 +38,12 @@ export const TaskBaseExample = () => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }}
             changeTaskStatus={changeStatusCallback}
             changeTaskTitle={changeTaskTitleCallback}
             removeTask={removeTaskCallback}
-            todolistID={'todolistIs2'}
         />
     </>
 }

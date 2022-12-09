@@ -6,9 +6,10 @@ import {TaskType} from '../api/todolists-api';
 import {TodolistsList} from '../features/TodolistsList/TodolistsList';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
 import {useAppSelector} from '../hooks/hooks';
+import {DomainTaskType} from '../features/TodolistsList/tasks-reducer';
 
 export type TasksStateType = {
-    [key: string]: TaskType[];
+    [key: string]: DomainTaskType[];
 };
 
 type PropsType = {

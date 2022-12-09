@@ -1,8 +1,15 @@
 import {TasksStateType} from '../../app/App';
-import {TaskPriorities, TaskStatuses, TaskType, todolitstsAPI, UpdateTaskModelType} from '../../api/todolists-api';
+import {
+    TaskPriorities,
+    TaskStatuses,
+    TaskType,
+    TodolistType,
+    todolitstsAPI,
+    UpdateTaskModelType
+} from '../../api/todolists-api';
 import {AppRootState, AppThunk} from '../../app/store';
-import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
-import {setAppErrorAC, setAppStatusAC} from '../../app/app-reducer';
+import {addTodolistAC, FilterValuesType, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
+import {RequestStatusType, setAppErrorAC, setAppStatusAC} from '../../app/app-reducer';
 
 const initialState: TasksStateType = {}
 
@@ -10,8 +17,8 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
     switch (action.type) {
         case 'REMOVE-TASK':
             return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id !== action.taskId)}
-        case 'ADD-TASK':
-            return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
+        // case 'ADD-TASK':
+        //     return {...state, [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]}
         case 'UPDATE-TASK':
             return {
                 ...state, [action.todolistId]: state[action.todolistId]
@@ -32,7 +39,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             return stateCopy
         }
         case 'SET-TASKS':
-            return {...state, [action.todolistId]: action.tasks}
+            return {...state, [action.todolistId]: action.tasks.map(t => ({...t, entityStatus: 'idle'}))}
         default:
             return state
     }
@@ -124,4 +131,8 @@ export type UpdateDomainTaskModelType = {
     priority?: TaskPriorities,
     startDate?: string,
     deadline?: string
+}
+
+export type DomainTaskType = TaskType & {
+    entityStatus: RequestStatusType
 }

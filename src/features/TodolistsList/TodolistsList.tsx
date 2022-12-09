@@ -1,12 +1,12 @@
 import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
 import React, {useCallback, useEffect} from 'react';
 import {
-    addTodolistTC, changeTodolistEntityStatusAC,
+    addTodolistTC,
     changeTodolistFilterAC,
     changeTodolistTitleTC,
     deleteTodolistTC,
-    FilterValuesType,
-    setTodolistsTC
+    setTodolistsTC,
+    FilterValuesType
 } from './todolists-reducer';
 import {addTaskTC, deleteTaskTC, updateTaskTC} from './tasks-reducer';
 import {TaskStatuses} from '../../api/todolists-api';

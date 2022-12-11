@@ -24,7 +24,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return state
     }
 }
-
+    
 // action-creators
 export const removeTodolistAC = (id: string) => (
     {type: 'REMOVE-TODOLIST', id} as const)

@@ -1,6 +1,7 @@
 import {TodolistType, todolitstsAPI} from '../../api/todolists-api';
 import {AppThunk} from '../../app/store';
 import {setAppStatusAC, RequestStatusType} from '../../app/app-reducer';
+import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -27,19 +28,14 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
 // action-creators
 export const removeTodolistAC = (id: string) => (
     {type: 'REMOVE-TODOLIST', id} as const)
-
 export const addTodolistAC = (todolist: TodolistType) => (
     {type: 'ADD-TODOLIST', todolist} as const)
-
 export const changeTodolistTitleAC = (id: string, title: string) => (
     {type: 'CHANGE-TODOLIST-TITLE', id, title} as const)
-
 export const changeTodolistFilterAC = (id: string, filter: FilterValuesType) => (
     {type: 'CHANGE-TODOLIST-FILTER', id, filter} as const)
-
 export const changeTodolistEntityStatusAC = (id: string, entityStatus: RequestStatusType) => (
     {type: 'CHANGE-TODOLIST-ENTITY-STATUS', id, entityStatus} as const)
-
 export const setTodolistsAC = (todolists: Array<TodolistType>) => (
     {type: 'SET-TODOLISTS', todolists} as const)
 
@@ -51,13 +47,23 @@ export const setTodolistsTC = (): AppThunk => (dispatch) => {
             dispatch(setTodolistsAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch((error) => {
+            handleServerNetworkError(error, dispatch)
+        })
 }
 export const addTodolistTC = (titleTodolist: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     todolitstsAPI.createTodolist(titleTodolist)
         .then((res) => {
-            dispatch(addTodolistAC(res.data.data.item))
-            dispatch(setAppStatusAC('succeeded'))
+            if (res.data.resultCode === 0) {
+                dispatch(addTodolistAC(res.data.data.item))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
+        .catch((error) => {
+            handleServerNetworkError(error, dispatch)
         })
 }
 export const deleteTodolistTC = (todolistID: string): AppThunk => (dispatch) => {
@@ -68,6 +74,9 @@ export const deleteTodolistTC = (todolistID: string): AppThunk => (dispatch) => 
             dispatch(removeTodolistAC(todolistID))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch((error) => {
+            handleServerNetworkError(error, dispatch)
+        })
 }
 export const changeTodolistTitleTC = (todolistID: string, newTodolistTitle: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -75,6 +84,9 @@ export const changeTodolistTitleTC = (todolistID: string, newTodolistTitle: stri
         .then(() => {
             dispatch(changeTodolistTitleAC(todolistID, newTodolistTitle))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((error) => {
+            handleServerNetworkError(error, dispatch)
         })
 }
 

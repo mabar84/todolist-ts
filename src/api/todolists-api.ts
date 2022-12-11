@@ -85,7 +85,7 @@ export type GetTasksResponse = {
     error: string | null
     items: TaskType[]
 }
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     data: D

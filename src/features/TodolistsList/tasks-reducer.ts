@@ -33,7 +33,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'SET-TASKS':
             return {...state, [action.todolistId]: action.tasks.map(t => ({...t, entityStatus: 'idle'}))}
         case 'CHANGE-TASK-ENTITY-STATUS': {
-            console.log(state)
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {

@@ -28,6 +28,7 @@ type PropsType = {
 
 export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
     const dispatch = useAppDispatch()
+    const disabled = props.todolist.entityStatus === 'loading'
 
     useEffect(() => {
         if (demo) {
@@ -64,13 +65,13 @@ export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
     return (
         <div>
             <h3>
-                <EditableSpan title={props.todolist.title} onChange={changeTodolistTitle}/>
-                <IconButton onClick={removeTodolist} disabled={props.todolist.entityStatus === 'loading'}>
+                <EditableSpan title={props.todolist.title} onChange={changeTodolistTitle} disabled={disabled}/>
+                <IconButton onClick={removeTodolist} disabled={disabled}>
                     <Delete/>
                 </IconButton>
             </h3>
 
-            <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
+            <AddItemForm addItem={addTask} disabled={disabled}/>
 
             <div>
                 {tasksForTodolist.map((task: DomainTaskType) => <Task

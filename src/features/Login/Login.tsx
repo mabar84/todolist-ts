@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFormik} from 'formik';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material';
-import {loginTC} from './login-reducer';
+import {loginTC} from './auth-reducer';
 import {useDispatch} from 'react-redux';
 import {useAppDispatch} from '../../hooks/hooks';
 

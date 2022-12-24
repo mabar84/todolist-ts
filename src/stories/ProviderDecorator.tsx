@@ -102,6 +102,9 @@ const initState: AppRootState = {
     app: {
         status: 'idle',
         error: null
+    },
+    auth: {
+        isLoggedIn: false
     }
 }
 

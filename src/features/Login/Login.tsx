@@ -1,15 +1,14 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from '@mui/material';
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, TextField} from '@mui/material';
 import {loginTC} from './auth-reducer';
-import {useDispatch} from 'react-redux';
-import {useAppDispatch} from '../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks/hooks';
+import {Navigate} from 'react-router-dom';
 
 export const Login = () => {
 
     const dispatch = useAppDispatch()
-    // Pass the useFormik() hook initial form values and a submit function that will
-    // be called when the form is submitted
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const formik = useFormik({
         validate: (values) => {
             if (!values.email) {
@@ -33,10 +32,14 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: values => {
-            // alert(JSON.stringify(values));
             dispatch(loginTC(values))
         },
     });
+
+    if (isLoggedIn) {
+        return <Navigate to="/"/>
+    }
+
     return (
         <Grid container justifyContent={'center'}>
             <Grid item xs={4}>

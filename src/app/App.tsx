@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App';
 import {
     AppBar,
@@ -17,6 +17,7 @@ import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
 import {initializeAppTC} from './app-reducer';
+import {logoutTC} from '../features/Login/auth-reducer';
 
 type PropsType = {
     demo?: boolean
@@ -25,11 +26,16 @@ type PropsType = {
 function App({demo = false}: PropsType) {
     const status = useAppSelector(state => state.app.status)
     const isInitialized = useAppSelector(state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     const dispatch = useAppDispatch()
-
+    
     useEffect(() => {
         dispatch(initializeAppTC())
+    }, [])
+
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutTC())
     }, [])
 
     if (!isInitialized) {
@@ -55,7 +61,7 @@ function App({demo = false}: PropsType) {
                         <Typography variant="h5" component="div" sx={{flexGrow: 1}}>
                             Todolist-ts
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        {isLoggedIn && <Button onClick={logoutHandler} color="inherit">Log Out</Button>}
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                 </AppBar>

@@ -2,13 +2,12 @@ import {authAPI, LoginParamsType} from '../../api/todolists-api';
 import {AppThunk} from '../../app/store';
 import {setAppStatusAC} from '../../app/app-reducer';
 import {handleServerAppError, handleServerNetworkError} from '../../utils/error-utils';
-import {removeTaskAC} from '../TodolistsList/tasks-reducer';
 
 const initialState: InitialStateType = {
     isLoggedIn: false
 }
 
-export const authReducer = (state: InitialStateType = {isLoggedIn: false}, action: ActionsType): InitialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'LOGIN/IS-LOGGED-IN':
             return {...state, isLoggedIn: action.isLoggedIn}

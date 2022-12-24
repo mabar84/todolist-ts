@@ -1,12 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App';
-import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography,} from '@mui/material';
+import {
+    AppBar,
+    Button,
+    CircularProgress,
+    Container,
+    IconButton,
+    LinearProgress,
+    Toolbar,
+    Typography,
+} from '@mui/material';
 import {Menu} from '@mui/icons-material';
 import {TodolistsList} from '../features/TodolistsList/TodolistsList';
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
-import {useAppSelector} from '../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Login} from '../features/Login/Login';
+import {initializeAppTC} from './app-reducer';
 
 type PropsType = {
     demo?: boolean
@@ -14,6 +24,18 @@ type PropsType = {
 
 function App({demo = false}: PropsType) {
     const status = useAppSelector(state => state.app.status)
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, [])
+
+    if (!isInitialized) {
+        return <CircularProgress
+            style={{position: 'absolute', top: '10%', left: '35%', width: '30vw', height: '30vw'}}/>
+    }
 
     return (
         <BrowserRouter>

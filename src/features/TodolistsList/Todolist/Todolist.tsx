@@ -74,14 +74,15 @@ export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
             <AddItemForm addItem={addTask} disabled={disabled}/>
 
             <div>
-                {tasksForTodolist.map((task: DomainTaskType) => <Task
-                        changeTaskStatus={props.changeTaskStatus}
-                        changeTaskTitle={props.changeTaskTitle}
-                        removeTask={props.removeTask}
-                        task={task}
-                        key={task.id}
-                    />
-                )}
+
+                {/*{tasksForTodolist.map((task: DomainTaskType) => <Task*/}
+                {/*        changeTaskStatus={props.changeTaskStatus}*/}
+                {/*        changeTaskTitle={props.changeTaskTitle}*/}
+                {/*        removeTask={props.removeTask}*/}
+                {/*        task={task}*/}
+                {/*        key={task.id}*/}
+                {/*    />*/}
+                {/*)}*/}
 
                 <div style={{marginTop: '20px'}}>
                     <Button

@@ -19,17 +19,38 @@ const slice = createSlice({
             }
         },
         addTaskAC(state: TasksStateType, action: PayloadAction<{ task: DomainTaskType }>) {
-            state[action.payload.task.todoListId] = [action.payload.task, ...state[action.payload.task.todoListId]]
+            state[action.payload.task.todoListId].unshift(action.payload.task)
         },
         updateTaskAC(state, action: PayloadAction<{ todolistId: string, taskId: string, model: UpdateDomainTaskModelType }>) {
+            const tasks = state[action.payload.todolistId]
+            const index = tasks.findIndex(t => t.id === action.payload.taskId)
+            if (index > -1) {
+                tasks[index] = {...tasks[index], ...action.payload.model}
+            }
         },
         changeTaskEntityStatusAC(state, action: PayloadAction<{ todolistId: string, taskId: string, entityStatus: string }>) {
+            const tasks = state[action.payload.todolistId]
+            const index = tasks.findIndex(t => t.id === action.payload.taskId)
+            if (index > -1) {
+                tasks[index].entityStatus = action.payload.entityStatus
+            }
         },
-        setTasksAC(state, action: PayloadAction<{ todolistId: string, tasks: Array<TaskType> }>) {
-
-            //state[action.payload.todolistId]= action.payload.tasks
-            // state[action.payload.todolistId] = action.payload.tasks.map(t => ({...t, entityStatus: 'idle'}))
+        setTasksAC(state, action: PayloadAction<{ todolistId: string, tasks: Array<DomainTaskType> }>) {
+            state[action.payload.todolistId] = action.payload.tasks
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(addTodolistAC, (state, action) => {
+            state[action.payload.todolist.id] = []
+        })
+        builder.addCase(removeTodolistAC, (state, action) => {
+            delete state[action.payload.id]
+        })
+        builder.addCase(setTodolistsAC, (state, action) => {
+            action.payload.todolists.forEach((tl: any) => {
+                state[tl.id] = []
+            })
+        })
     }
 })
 
@@ -86,7 +107,8 @@ export const setTasksTC = (todolistId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC({status: 'loading'}))
     todolitstsAPI.getTasks(todolistId)
         .then((res) => {
-            dispatch(setTasksAC({todolistId: todolistId, tasks: res.data.items}))
+            const tasks = res.data.items.map((t) => ({...t, entityStatus: 'idle'}))
+            dispatch(setTasksAC({todolistId: todolistId, tasks: tasks}))
             dispatch(setAppStatusAC({status: 'succeeded'}))
         })
         .catch((error) => {
